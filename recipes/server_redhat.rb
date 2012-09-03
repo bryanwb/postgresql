@@ -31,7 +31,7 @@ end
 user "postgres" do
   shell "/bin/bash"
   comment "PostgreSQL Server"
-  home "/var/lib/pgsql"
+  home "/var/lib/pgsql/#{node['postgresql']['version']}"
   gid "postgres"
   system true
   uid 26
