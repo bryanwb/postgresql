@@ -44,11 +44,11 @@ node['postgresql']['server']['packages'].each do |pg_pack|
   end
 end
 
-execute "/sbin/service postgresql initdb" do
+execute "/sbin/service postgresql-#{node['postgresql']['version']} initdb" do
   not_if { ::FileTest.exist?(File.join(node.postgresql.dir, "PG_VERSION")) }
 end
 
-service "postgresql" do
+service "postgresql-#{node['postgresql']['version']}" do
   supports :restart => true, :status => true, :reload => true
   action [:enable, :start]
 end
@@ -58,5 +58,5 @@ template "#{node[:postgresql][:dir]}/postgresql.conf" do
   owner "postgres"
   group "postgres"
   mode 0600
-  notifies :restart, resources(:service => "postgresql"), :immediately
+  notifies :restart, resources(:service => "postgresql-#{node['postgresql']['version']}"), :immediately
 end
