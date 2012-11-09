@@ -71,7 +71,9 @@ when "redhat","centos","scientific"
 
   default[:postgresql][:version] = "8.4"
   set[:postgresql][:dir] = "/var/lib/pgsql/data"
-
+  set['postgresql']['user']['postgres']['home'] = "/var/lib/pgsql/#{node['postgresql']['version']}"
+  set['postgresql']['user']['postgres']['manage_home'] = false
+  
   if node['platform_version'].to_f >= 6.0
     default['postgresql']['client']['packages'] = %w{postgresql-devel}
     default['postgresql']['server']['packages'] = %w{postgresql-server}

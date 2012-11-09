@@ -31,11 +31,12 @@ end
 user "postgres" do
   shell "/bin/bash"
   comment "PostgreSQL Server"
+  #  home node['postgresql']['user']['postgres']['home']
   home "/var/lib/pgsql/#{node['postgresql']['version']}"
   gid "postgres"
   system true
   uid 26
-  supports :manage_home => false
+  supports :manage_home => node['postgresql']['user']['postgres']['manage_home']
 end
 
 node['postgresql']['server']['packages'].each do |pg_pack|

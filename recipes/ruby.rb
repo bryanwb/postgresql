@@ -27,7 +27,7 @@ node.set['build_essential']['compiletime'] = true
 include_recipe "build-essential"
 include_recipe "postgresql::client"
 
-pg_devel_pkg = node['postgresql']['client']['packages'].select { |pkg| pkg =~ /devel/ }.first
+pg_devel_pkg = node['postgresql']['client']['packages'].select { |pkg| pkg =~ /dev/ }.first
 pg_devel_status = Chef::ShellOut.new("rpm -qa #{pg_devel_pkg}").run_command.stdout
 pg_devel_installed = ! pg_devel_status.empty?
 
